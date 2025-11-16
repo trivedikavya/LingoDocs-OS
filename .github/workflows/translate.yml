@@ -3,6 +3,8 @@ name: Translate
 on:
   push:
     branches: [main] # Runs when you push to the 'main' branch
+    paths:
+      - 'README.md' # Only run when README.md changes
 
 permissions:
   contents: write # This is new and very important!
