@@ -7,7 +7,7 @@ on:
       - 'README.md' # Only run when README.md changes
 
 permissions:
-  contents: write # This is new and very important!
+  contents: write 
 
 jobs:
   translate:
@@ -22,14 +22,14 @@ jobs:
         env:
           LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
           
-      # 3. NEW STEP: Commit and push the new files
+      # 3. Commit and push the new files (FIXED)
       - name: Commit translated files
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Check if there are any changes
-          if -z "$(git status --porcelain)"; then
+          # Check if there are any changes (Note the brackets)
+          if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit."
             exit 0
           fi
