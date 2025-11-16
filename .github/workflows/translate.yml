@@ -22,3 +22,19 @@ jobs:
         env:
           LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
           
+      # 3. NEW STEP: Commit and push the new files
+      - name: Commit translated files
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Check if there are any changes
+          if -z "$(git status --porcelain)"; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
+          # Add, commit, and push the new files
+          git add .
+          git commit -m "docs: auto-translate README files"
+          git push
