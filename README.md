@@ -9,3 +9,5 @@ Helloji, this is my project for the Lingo Hackathon!
 
 ## 📝 About this Demo
 When I push a change to this `README.md` file, the GitHub Action will automatically create and update translated versions of this file in Spanish and Hindi.
+
+This is a new line to test the Lingo Action!
