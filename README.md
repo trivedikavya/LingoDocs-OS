@@ -1,6 +1,6 @@
 # My Awesome Project
 
-Hello, this is my project for the Lingo Hackathon!
+Helloji, this is my project for the Lingo Hackathon!
 
 ## 🚀 Features
 * It's cool.
