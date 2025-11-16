@@ -1,6 +1,6 @@
 # Mi proyecto increíble
 
-helloji
+hola
 
 ## 📝 Acerca de esta demostración
 
