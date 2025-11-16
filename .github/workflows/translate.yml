@@ -19,3 +19,4 @@ jobs:
         run: npx lingo.dev@latest ci --api-key "$LINGODOTDEV_API_KEY"
         env:
           LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # <-- ADD THIS LINE
