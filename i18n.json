@@ -1,11 +1,17 @@
 {
-  "sourceLocale": "en",
-  "targetLocales": [
-    "es",
-    "hi",
-    "fr"
-  ],
-  "format": "markdown",
-  "source": "README.md",
-  "target": "README.[locale].md"
-} 
+  "version": "1.10",
+  "locale": {
+    "source": "en",
+    "targets": [
+      "es"
+    ]
+  },
+  "buckets": {
+    "markdown": {
+      "include": [
+        "README.[locale].md"
+      ]
+    }
+  },
+  "$schema": "https://lingo.dev/schema/i18n.json"
+}

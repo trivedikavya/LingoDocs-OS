@@ -2,9 +2,9 @@ name: Translate
 
 on:
   push:
-    branches: [main] # Runs when you push to the 'main' branch
+    branches: [main] 
     paths:
-      - 'README.md' # Only run when README.md changes
+      - 'README.en.md' # <-- IMPORTANT: This path has changed
 
 permissions:
   contents: write 
@@ -22,19 +22,17 @@ jobs:
         env:
           LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
           
-      # 3. Commit and push the new files (FIXED)
+      # 3. Commit and push the new files
       - name: Commit translated files
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Check if there are any changes (Note the brackets)
           if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit."
             exit 0
           fi
           
-          # Add, commit, and push the new files
           git add .
-          git commit -m "docs: auto-translate README files"
+          git commit -m "docs: auto-translate files"
           git push
