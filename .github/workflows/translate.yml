@@ -30,7 +30,7 @@ jobs:
 
       # 3. Install the Lingo CLI tool
       - name: Install Lingo CLI
-        run: npm install -g @lingo-ai/cli
+        run: npm install -g lingo.dev
 
       # 4. Run the translation!
       # This command reads your lingo.json, translates, and creates the new files.
