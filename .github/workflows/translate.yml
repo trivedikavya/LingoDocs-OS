@@ -1,10 +1,10 @@
-name: Translate
+name: Translate README
 
 on:
   push:
-    branches: [main] 
+    branches: [main]
     paths:
-      - 'README.en.md' # <-- IMPORTANT: This path has changed
+      - 'README.md' # 1. Trigger when the MAIN README.md changes
 
 permissions:
   contents: write 
@@ -13,16 +13,22 @@ jobs:
   translate:
     runs-on: ubuntu-latest
     steps:
-      # 1. Check out your code
+      # 2. Check out your code
       - uses: actions/checkout@v4
 
-      # 2. Run the all-in-one Lingo command
+      # 3. Create the 'en' file from the main README.md
+      - name: Sync README.md to "en" version
+        run: |
+          mkdir -p "readme languages"
+          cp README.md "readme languages/README.en.md"
+          
+      # 4. Run Lingo.dev to translate
       - name: Run Lingo.dev
         run: npx lingo.dev@latest ci --api-key "$LINGODOTDEV_API_KEY"
         env:
           LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
           
-      # 3. Commit and push the new files
+      # 5. Commit and push ALL new files (the .en, .es, .hi, etc.)
       - name: Commit translated files
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -33,6 +39,9 @@ jobs:
             exit 0
           fi
           
-          git add .
-          git commit -m "docs: auto-translate files"
+          # Add all new files in the new folder
+          git add "readme languages/"
+          git add i18n.lock
+          
+          git commit -m "docs: auto-sync and translate README"
           git push

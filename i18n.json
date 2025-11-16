@@ -3,13 +3,14 @@
   "locale": {
     "source": "en",
     "targets": [
-      "es"
+      "es",
+      "hi"
     ]
   },
   "buckets": {
     "markdown": {
       "include": [
-        "README.[locale].md"
+        "readme languages/README.[locale].md"
       ]
     }
   },
