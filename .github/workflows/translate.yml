@@ -1,58 +1,21 @@
-name: Translate README
+name: Translate
 
-# This action runs when you push to the 'main' branch
-# AND only if the 'README.md' file was changed.
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'README.md'
+    branches: [main] # Runs when you push to the 'main' branch
+
+permissions:
+  contents: write # This is new and very important!
 
 jobs:
   translate:
-    # Use the latest Ubuntu server
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Get your code
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          # We need a token to push changes back
-          token: ${{ secrets.GITHUB_TOKEN }} 
+      # 1. Check out your code
+      - uses: actions/checkout@v4
 
-      # 2. Set up Node.js, which is needed to run the Lingo CLI
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # 3. Install the Lingo CLI tool
-      - name: Install Lingo CLI
-        run: npm install -g lingo.dev
-
-      # 4. Run the translation!
-      # This command reads your lingo.json, translates, and creates the new files.
-      - name: Sync Lingo Translations
-        run: lingo sync
+      # 2. Run the all-in-one Lingo command
+      - name: Run Lingo.dev
+        run: npx lingo.dev@latest ci --api-key "$LINGODOTDEV_API_KEY"
         env:
-          # This securely uses the API key you added to GitHub secrets
-          LINGO_API_KEY: ${{ secrets.LINGO_API_KEY }} 
-
-      # 5. Commit the new translated files back to your repository
-      - name: Commit translated files
-        run: |
-          # Configure git with a bot name
-          git config --global user.name 'Lingo Translator Bot'
-          git config --global user.email 'bot@github.com'
-          
-          # Add all new/changed README files
-          git add README.*.md
-          
-          # Check if there are any changes to commit
-          # If 'git diff' finds changes, it will commit. Otherwise, it does nothing.
-          git diff --staged --quiet || git commit -m "docs: auto-translate README files"
-          
-          # Push the new files back to your 'main' branch
-          git push
+          LINGODOTDEV_API_KEY: ${{ secrets.LINGODOTDEV_API_KEY }}
